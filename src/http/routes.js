@@ -6,29 +6,48 @@ const db = require('../services/mysql');
 // db.categories().delete();
 
 const routes = (server) => {
-  server.get('/categoria', (req, res, next) => {
-    db.categories()
-      .all()
-      .then((categories) => {
-        console.log(categories);
-        res.send(categories);
-        next();
-      })
-      .catch((error) => console.log(error));
+  server.get('/categoria', async (req, res, next) => {
+    try {
+      res.send(await db.categories().all());
+      next();
+    } catch (error) {
+      res.send(error);
+      next();
+    }
   });
-  server.post('/categoria', (req, res, next) => {
+
+  server.post('/categoria', async (req, res, next) => {
     const { name } = req.params;
-    res.send(name);
-    next();
+    try {
+      res.send(await db.categories().save(name));
+      next();
+    } catch (error) {
+      res.send(error);
+      next();
+    }
   });
-  // server.put('categoria', (req, res, next)=>{
-  //   res.send();
-  //   next();
-  // });
-  // server.delete('categoria', (req, res, next)=>{
-  //   res.send();
-  //   next();
-  // });
+
+  server.put('/categoria', async (req, res, next) => {
+    const { id, name } = req.params;
+    try {
+      res.send(await db.categories().update(id, name));
+      next();
+    } catch (error) {
+      res.send(error);
+      next();
+    }
+  });
+
+  server.del('/categoria', async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      res.send(await db.categories().del(id));
+      next();
+    } catch (error) {
+      res.send(error);
+      next();
+    }
+  });
 
   server.get('/', (req, res, next) => {
     res.send('Enjoy the silence. Again...');
