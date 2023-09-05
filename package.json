@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "ava": "^5.3.1",
     "eslint": "^8.48.0",
     "mysql": "^2.18.1",
     "restify": "^7.7.0",
@@ -175,7 +176,7 @@
   },
   "scripts": {
     "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava --verbose"
   },
   "keywords": [],
   "author": "",
