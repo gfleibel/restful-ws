@@ -3,7 +3,7 @@ const categories = (deps) => {
     all: () => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps;
-        connection.query('SELECT * FROM categories', (error, results) => {
+        connection.query('SELECT * FROM categories;', (error, results) => {
           if (error) {
             errorHandler(error, 'Falha ao listar as categorias', reject);
             return false;
@@ -16,7 +16,7 @@ const categories = (deps) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps;
         connection.query(
-          'INSERT INTO categories (name) VALUES (?)',
+          'INSERT INTO categories (name) VALUES (?);',
           [name],
           (error, results) => {
             if (error) {
@@ -36,7 +36,7 @@ const categories = (deps) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps;
         connection.query(
-          'UPDATE categories SET name = ? WHERE id = ?',
+          'UPDATE categories SET name = ? WHERE id = ?;',
           [name, id],
           (error, results) => {
             if (error) {
@@ -56,7 +56,7 @@ const categories = (deps) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps;
         connection.query(
-          'DELETE FROM categories WHERE id = ?',
+          'DELETE FROM categories WHERE id = ?;',
           [id],
           (error, results) => {
             if (error) {

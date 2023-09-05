@@ -1,10 +1,6 @@
 const categories = require('../services/mysql');
 const db = require('../services/mysql');
 
-// db.categories().save(name);
-// db.categories().update(id, name);
-// db.categories().delete();
-
 const routes = (server) => {
   server.get('/categoria', async (req, res, next) => {
     try {
