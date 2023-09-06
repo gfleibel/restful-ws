@@ -39,7 +39,7 @@ const categories = (deps) => {
           'UPDATE categories SET name = ? WHERE id = ?;',
           [name, id],
           (error, results) => {
-            if (error) {
+            if (error || !results.affectedRows) {
               errorHandler(
                 error,
                 `Falha ao atualizar a categoria ${name}`,
@@ -47,7 +47,7 @@ const categories = (deps) => {
               );
               return false;
             }
-            resolve({ categories: { name, id: results.insertId } });
+            resolve({ categories: { name, id }, affectedRows: results.affectedRows });
           },
         );
       });
@@ -59,7 +59,7 @@ const categories = (deps) => {
           'DELETE FROM categories WHERE id = ?;',
           [id],
           (error, results) => {
-            if (error) {
+            if (error || !results.affectedRows) {
               errorHandler(
                 error,
                 `Falha ao deletar a categoria de id ${id}.`,
@@ -67,7 +67,7 @@ const categories = (deps) => {
               );
               return false;
             }
-            resolve({ message: 'Categoria removida com sucesso!' });
+            resolve({ message: 'Categoria removida com sucesso!', affectedRows: results.affectedRows });
           },
         );
       });
